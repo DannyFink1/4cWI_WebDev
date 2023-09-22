@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="index.js"></script>
+</head>
+<body>
+    <h1>Taschenrechner</h1>
+
+    <div class="inputs">
+        <div class="selection">
+            <p>Wähle die Rechenart:</p>
+            <select class="selectmenu" id="select">
+                <option value="add">Addition</option>
+                <option value="subtract">Subtraktion</option>
+                <option value="multiply">Multiplikation</option>
+                <option value="divide">Division</option>
+            </select>
+        </div>
+        <div class="number1">
+            <p>Number 1:</p>
+            <input placeholder="Number 1" type="number" id="n1" name="num1">
+        </div>
+        <div class="number2">
+            <p>Number 2:</p>
+            <input placeholder="Number 2" type="number" id="n2" name="num2">
+        </div>
+
+        <button type="submit" onclick="calculate()">Rechnen</button>
+        <p id="res"></p>
+    </div>
+</body>
