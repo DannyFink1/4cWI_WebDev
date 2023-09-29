@@ -1,1 +1,0 @@
-das UML Diagramm befindet sich im Abgabe Ordner im OneNote
