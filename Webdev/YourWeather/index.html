@@ -5,34 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 
 <body class="overflow-hidden bg-[url('./img/bg.jpg')]">
     <div class="wrapper">
-        <div class="header bg-[#FFE899]/[.75] p-5 flex items-center border-solid border-b-[3px] border-black/[.50] ">
-            <img src="./img/sun-logo.png " width="70" height="70" alt="Sun ">
-            <p class="text-[#FB8500] font-bold drop-shadow-lg text-[48px] ">Your</p>
-            <p class="text-[#023047] font-medium drop-shadow-lg text-[48px] ">Weather</p>
-            <img src="./img/Menu.png " width="50" height="70" alt="Menu">
-        </div>
-        <div class="container flex flex-col items-center justify-center bg-black/[0.1] h-screen w-screen">
-            <div class="searchbar w-[20%] h-[3.5%] bg-white rounded-[50px] flex items-center">
-                <div class="text-black/[70%] m-2.5">Suche (Ort, PLZ, ...)</div>
-                <img src="./img/search.png" alt="" width="20px" class="">
+        <div class="bg-[#FFE899]/[.75] p-5 flex justify-between items-center border-solid border-b-[3px] border-black/[.50] ">
+            <div class="flex gap-2">
+                <img src="./img/sun-logo.png " width="70" height="70" alt="Sun ">
+                <p class="text-[#FB8500] font-bold drop-shadow-lg text-[48px] ">Your</p>
+                <p class="text-[#023047] font-medium drop-shadow-lg text-[48px] ">Weather</p>
             </div>
-            <div class="main-component w-[60%] h-[50%] bg-white m-1 rounded-[20px]">
-                <div class="upper">
-                    <div class="state">Vorarlberg</div>
-                    <div class="location">Alberschwende</div>
-                    <div class="date">Heute, Do 5.10.2023</div>
-                    <div class="currentTemp">9°</div>
-                    <div class="rain">Niederschlag: 0 mm/h</div>
-                    <div class="wind">Wind: 0 km/h</div>
-                    <div class="humidity">Luftfeuchtigkeit: 40%</div>
-                    <div class="weatherimg">IMG</div>
-                    <div class="weatherDescription">sonnig</div>
+            <div><img src="./img/Menu.png " width="50" height="70" alt="Menu"></div>
+        </div>
+        <div class="flex flex-col items-center justify-center bg-black/[0.1] h-screen w-screen">
+            <div class=" w-[20%] h-[3.5%] bg-white rounded-[50px] flex items-center justify-between">
+                <input type="text" class="text-black/[70%] m-2.5" placeholder="Suche (Ort, PLZ, ...)">
+                <img src="./img/search.png" alt="" width="20px">
+            </div>
+            <div class="w-[60%] h-[50%] bg-white m-1 rounded-[20px]">
+                <div class=" m-2 bg-indigo-500 flex justify-items-center h-[65%]">
+                    <div class=" mt-2 w-[34%] text-[25px] border-dotted border-[2px] border-black/[.50]">
+                        <div class="state text-[14px] font-bold">Vorarlberg</div>
+                        <div class="location ">Alberschwende</div>
+                        <div class="currentTemp text-[32px] font-extrabold">9°</div>
+                        <div class="tempPrediction text-[20px]">8°/16°</div>
+                        <div class="rain text-[18px]">Niederschlag: 0 mm/h</div>
+                        <div class="wind text-[15px]">Wind: 0 km/h</div>
+                        <div class="humidity text-[15px]">Luftfeuchtigkeit: 40%</div>
+                    </div>
+                    <div
+                        class="date_container text-[25px] font-bold w-[45%] border-dotted border-[3px] border-black/[.50] flex flex-col items-center">
+                        <div class="day">Heute, Do</div>
+                        <div class="date">5.10.2023</div>
+                    </div>
+                    <div class="image_container w-[33%] border-dotted border-[3px] border-black/[.50]">
+                        <div class="weatherimg">IMG</div>
+                        <div class="weatherDescription">sonnig</div>
+                    </div>
+
                 </div>
                 <div class="lower">
                     <div class="scrollbar">scrollbar</div>
@@ -40,7 +54,7 @@
                         <div class="example1">
                             <div class="time">08 Uhr</div>
                             <div class="hour-temp">12°</div>
-                            <div class="hour-img">img</div>
+                            <div class="hour-img">IMG</div>
                             <div class="hour-humidity">40%</div>
                         </div>
                     </div>
