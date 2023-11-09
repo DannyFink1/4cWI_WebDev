@@ -17,7 +17,6 @@
 <body class="overflow-hidden bg-[url('./img/bg.jpg')]">
     <div class="wrapper">
         <div class="buttonAPI">
-            <button id="getAPI">Drück mich!</button>
         </div>
         <div class="bg-[#FFE899]/[.75] p-5 flex justify-between items-center border-solid border-b-[3px] border-black/[.50] ">
             <div class="flex gap-2">
@@ -29,40 +28,53 @@
         </div>
         <div class="flex flex-col items-center justify-center bg-black/[0.1] h-screen w-screen">
             <div class=" w-[20%] h-[3.5%] bg-white rounded-[50px] flex items-center justify-between">
-                <input type="text" class="text-black/[70%] m-2.5" placeholder="Suche (Ort, PLZ, ...)">
+            <input type="text" class="text-black/[70%] m-2.5" placeholder="Suche (Ort, PLZ, ...)" id="input"> 
                 <img src="./img/search.png" alt="" width="20px">
             </div>
-            <div class="w-[60%] h-[50%] bg-white m-1 rounded-[20px]">
-                <div class=" m-2 bg-indigo-500 flex justify-items-center h-[65%]">
-                    <div class=" mt-2 w-[34%] text-[25px] border-dotted border-[2px] border-black/[.50]">
-                        <div class=" text-[14px] font-bold" id="state">Vorarlberg</div>
-                        <div class="" id="location">Alberschwende</div>
-                        <div class="text-[32px] font-extrabold" id="currentTemp">9°</div>
-                        <div class="tempPrediction text-[20px]" id="tempPrediction">8°/16°</div>
-                        <div class=" text-[18px]" id="rain">Niederschlag: 0 mm/h</div>
-                        <div class=" text-[15px]" id="wind">Wind: 0 km/h</div>
-                        <div class=" text-[15px]" id="humidity">Luftfeuchtigkeit: 40%</div>
+            <div class="w-[60%] h-[50%] bg-white m-1 rounded-[20px] border-solid border-[1.5px] border-[#023047]/[.70]">
+                <div class=" m-2 date.format('D/MM/YYYY') flex justify-items-center h-[65%]">
+                    <div class=" mt-2 ml-2 w-[34%] text-[25px] border-dotted border-[2px] border-black/[.50]">
+                        <div class=" text-[16px] font-bold " id="state">Vorarlberg</div>
+                        <div class="text-[25px] font-regular" id="location">Alberschwende</div>
+                        <div class="text-[32px] font-extrabold ml-4" id="currentTemp">9°</div>
+                        <div class="text-[20px] ml-4 font-regular" id="tempPrediction">8°/16°</div>
+                        <div class="text-[18px] ml-4 font-semibold" id="rain">Niederschlag: 0 mm/h</div>
+                        <div class="text-[15px] ml-4 font-semibold" id="wind">Wind: 0 km/h</div>
+                        <div class="text-[15px] ml-4 font-semibold" id="humidity">Luftfeuchtigkeit: 40%</div>
                     </div>
                     <div
                         class="date_container text-[25px] font-bold w-[45%] border-dotted border-[3px] border-black/[.50] flex flex-col items-center">
-                        <div class="" id="day">Heute, Do</div>
-                        <div class="" id="date">5.10.2023</div>
+                        <div class="font-extrabold" id="day">Heute, Do</div>
+                        <div class="font-extrabold" id="date">5.10.2023</div>
                     </div>
-                    <div class="image_container w-[33%] border-dotted border-[3px] border-black/[.50]">
-                        <div class="weatherimg">IMG</div>
-                        <div class="weatherDescription">sonnig</div>
+                    <div class="image_container w-[33%] border-dotted border-[3px] border-black/[.50] mt-2">
+                        <div class="flex flex-col items-center">
+                            <img src="./img/search.png" alt="" width="150px" id="condition_img">
+                        </div>
+                        <div class="w-[100%] flex flex-col items-center">
+                            <div class="text-[30px] font-medium" id="condition_text">sonnig</div>
+                        </div>
                     </div>
 
                 </div>
-                <div class="lower">
-                    <div class="scrollbar">scrollbar</div>
-                    <div class="hour-list">
-                        <div class="example1">
+                <div class="h-[120px] border-solid border-[3px] border-black/[.50] overflow-scroll">
+                    <div class="hour-list flex" id="hour_details">
+                        <div class="example1 border-dotted border-[0.5px] border-black w-[100px] ">
                             <div class="time">08 Uhr</div>
                             <div class="hour-temp">12°</div>
                             <div class="hour-img">IMG</div>
                             <div class="hour-humidity">40%</div>
                         </div>
+                        <div class="example1 border-dotted border-[0.5px] border-black">
+                            <div class="time">08 Uhr</div>
+                            <div class="hour-temp">12°</div>
+                            <div class="hour-img">IMG</div>
+                            <div class="hour-humidity">40%</div>
+                        </div>
+
+
+
+                        
                     </div>
                 </div>
 
