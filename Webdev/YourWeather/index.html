@@ -21,19 +21,37 @@
         <div class="bg-[#FFE899]/[.75] p-5 flex justify-between items-center border-solid border-b-[3px] border-black/[.50] ">
             <div class="flex gap-2">
                 <img src="./img/sun-logo.png " width="70" height="70" alt="Sun ">
-                <p class="text-[#FB8500] font-bold drop-shadow-lg text-[48px] ">Your</p>
+                <p class="text-[#FB8500] font-bold drop-shadow-lg text-[48px] " href="loil">Your</p>
                 <p class="text-[#023047] font-medium drop-shadow-lg text-[48px] ">Weather</p>
             </div>
-            <div><img src="./img/Menu.png " width="50" height="70" alt="Menu" ></div>
+            <div><img src="./img/Menu.png " width="50" height="70" alt="Menu"></div>
         </div>
         <div class="flex flex-col items-center justify-center bg-black/[0.1] h-screen w-screen">
-            <div class=" w-[20%] h-[3.5%] bg-white rounded-[50px] flex items-center justify-between">
-            <input type="text" class="text-black/[70%] m-2.5" placeholder="Suche (Ort, PLZ, ...)" id="input"> 
-                <img src="./img/search.png" alt="" width="20px">
+            <div class=" mb-3 w-[20%] h-[4.5%] bg-white rounded-[50px] border-solid border-[2px] border-[#023047]/[0.7] flex items-center justify-between">
+                <input type="text" class="font-bold text-black/[70%] text-[20px] m-2.5 w-[80%]" placeholder="Suche (Ort, PLZ, ...)" id="input">
+                <img class="m-2" src="./img/search.png" alt="" width="20px" id="searchIcon">
             </div>
-            <div class="w-[60%] h-[50%] bg-white m-1 rounded-[20px] border-solid border-[1.5px] border-[#023047]/[.70]">
-                <div class=" m-2 date.format('D/MM/YYYY') flex justify-items-center h-[65%]">
-                    <div class=" mt-2 ml-2 w-[34%] text-[25px] ">
+            <div class="w-[20%] h-[20%] rounded-[20px]  bg-white border-solid border-[2px] border-[#023047]/[0.7] hidden p-2 overflow-y-scroll" id="autocomplete">
+                <div class="w-[100%] hover:bg-[#023047]">Dornbirn</div>
+                <hr>
+                <div>Bregenz</div>
+                <div>Dornbirn</div>
+                <hr>
+                <div>Bregenz</div>
+                <div>Dornbirn</div>
+                <hr>
+                <div>Bregenz</div>
+                <div>Dornbirn</div>
+                <hr>
+                <div>Bregenz</div>
+                <div>Dornbirn</div>
+                <hr>
+                <div>Bregenz</div>
+
+            </div>
+            <div class="w-[60%] h-[50%] bg-white m-1 rounded-[20px] border-solid border-[2px] border-[#023047]/[.70]">
+                <div class=" m-2 date.format('D/MM/YYYY') flex justify-items-center h-[60%]">
+                    <div class=" mt-2 ml-2 w-[34%] text-[25px]">
                         <div class=" text-[16px] font-bold " id="state">Vorarlberg</div>
                         <div class="text-[25px] font-regular" id="location">Alberschwende</div>
                         <div class="text-[32px] font-extrabold ml-4" id="currentTemp">9°</div>
@@ -42,8 +60,7 @@
                         <div class="text-[15px] ml-4 font-semibold" id="wind">Wind: 0 km/h</div>
                         <div class="text-[15px] ml-4 font-semibold" id="humidity">Luftfeuchtigkeit: 40%</div>
                     </div>
-                    <div
-                        class="date_container text-[25px] font-bold w-[45%]  flex flex-col items-center">
+                    <div class="date_container text-[25px] font-bold w-[45%] flex flex-col items-center">
                         <div class="font-extrabold" id="day">Heute, Do</div>
                         <div class="font-extrabold" id="date">5.10.2023</div>
                     </div>
@@ -55,10 +72,10 @@
                             <div class="text-[30px] font-medium" id="condition_text">sonnig</div>
                         </div>
                     </div>
-                
                 </div>
-                <div class="h-[120px] overflow-x-scroll">
-                    <div class="hour-list flex w-[2530px]"  id="hour_details">
+                <div class=" w-[100%] h-[20px] bg-[#004C72] mb-2"></div>
+                <div class="h-[28%] overflow-x-scroll">
+                    <div class="hour-list flex w-[2530px]" id="hour_details">
                         <div class=" h-[100px] bg-[#8ECAE6] border-sold border-[1px] border-[#023047] rounded-[2px] ml-4 mr-4 flex flex-col items-center">
                             <div class="time">08 Uhr</div>
                             <div class="hour-temp">12°</div>
@@ -74,7 +91,7 @@
 
 
 
-                        
+
                     </div>
                 </div>
 
