@@ -94,7 +94,7 @@ function changeData(data) {
           var temp = data.forecast.forecastday[0].hour[i].temp_c;
           var icon = data.forecast.forecastday[0].hour[i].condition.icon;
           var humidity = data.forecast.forecastday[0].hour[i].humidity;
-          returnString += " <div class=\"border-dotted border-[0.5px] border-black\"> <div class=\"time\"> " + i + " Uhr</div> <div class=\"hour-temp\">" + temp + "°</div> <div class=\"hour-img\"> <img src=" + icon +"></div> <div class=\"hour-humidity\">" + humidity +"%</div></div>";
+          returnString += " <div class=\" h-[100px] w-[90px] bg-[#8ECAE6] border-sold border-[1px] border-[#023047] rounded-[2px] ml-4 mr-4 flex flex-col items-center\"> <div class=\"time text-[13px]\"> " + i + " Uhr</div> <div class=\"hour-temp font-semibold\">" + temp + "°</div> <div class=\"hour-img\"> <img src=" + icon +" width=\"40px\"></div> <div class=\"hour-humidity text-[9px]\">" + humidity +"%</div></div>";
         }
         document.getElementById("hour_details").innerHTML = returnString;
 
@@ -142,7 +142,7 @@ function changeData(data) {
   }
 
   //Main Process
-  document.getElementById("input").onchange = function() {
+  document.getElementById("input").onchange = function main() {
     let value = document.getElementById("input").value;
     var fetchVal;
     callAPIforCurrent(value); 
