@@ -6,31 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="index.js" defer></script>
+    <script src="js/index.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-    </script>
-
-
 </head>
 
-<body class="overflow-hidden bg-[url('./img/bg.jpg')] bg-cover">
+<body class="overflow-hidden bg-[url('./img/bg.jpg')] bg-cover" id="body">
     <div class="wrapper">
         <div class="bg-[#FFE899]/[.75] p-5 flex justify-between items-center border-solid border-b-[3px] border-black/[.50] ">
             <div class="flex gap-2">
-
                 <a href="index.html" class="flex gap-2">
                     <img src="./img/sun-logo.png " width="70" height="70" alt="Sun ">
                     <p class="text-[#FB8500] font-bold drop-shadow-lg text-[48px] ">Your</p>
                     <p class="text-[#023047] font-medium drop-shadow-lg text-[48px] ">Weather</p>
                 </a>
             </div>
-            <div><img src="./img/Menu.png " width="50" height="70" alt="Menu"></div>
+            <div><img src="./img/Menu.png " width="50" height="70" alt="Menu" id="menubtn"></div>
         </div>
-        <div class="flex flex-col items-center justify-center bg-black/[0.1] h-screen w-screen">
+        <div class="absolute border-solid border-l-[3px] border-black/[.50] right-[-1000px] w-[350px] h-[100%] bg-[#FFE899]/[.90] flex flex-col items-center" id="menu">
+            <svg class="absolute right-2 top-2" width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" id="close-x">
+                <path d="M7.0051 0L0 7.0051L3.57707 10.5822L12.4204 19.5745L3.57707 28.4178L0 31.8459L7.0051 39L10.5822 35.4229L19.5745 26.4306L28.4178 35.4229L31.8459 39L39 31.8459L35.4229 28.4178L26.4306 19.5745L35.4229 10.5822L39 7.0051L31.8459 0L28.4178 3.57707L19.5745 12.4204L10.5822 3.57707L7.0051 0Z" fill="#023047" fill-opacity="0.9"/>
+            </svg>
 
+            <div class="absolute top-[100px] flex flex-col text-[45px]">
+                <a href="index.html">Heute</a>
+                <a href="subPages/tomorrow.html">Morgen</a>
+                <a href="subPages/threeDays.html">3-Tage</a>
+                <a href="subPages/lastWeek.html">Letzte Woche</a>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center justify-center bg-black/[0.1] h-screen w-screen">
             <div class=" mb-3 w-[20%] h-[4.5%] bg-white rounded-[50px] border-solid border-[2px] border-[#023047]/[0.7] flex items-center justify-between">
                 <input type="text" class="font-bold text-black/[70%] text-[20px] m-2.5 w-[80%] h-[85%]" placeholder="Suche (Ort, PLZ, ...)" id="input">
                 <img class="m-2" src="./img/search.png" alt="" width="20px" id="searchIcon">
@@ -45,7 +52,7 @@
 
             </div>
 
-            <div class="w-[60%] h-[50%] bg-white m-1 rounded-[20px] border-solid border-[2px] border-[#023047]/[.70]">
+            <div class="w-[50%] h-[50%] bg-white m-1 rounded-[20px] border-solid border-[2px] border-[#023047]/[.70]">
                 <div class=" m-2 date.format('D/MM/YYYY') flex justify-items-center h-[60%]">
                     <div class=" mt-2 ml-2 w-[34%] text-[25px]">
                         <div class=" text-[16px] font-bold " id="state">Vorarlberg</div>
@@ -60,7 +67,7 @@
                         <div class="font-extrabold" id="day">Heute, Do</div>
                         <div class="font-extrabold" id="date">5.10.2023</div>
                     </div>
-                    <div class="image_container w-[33%]  mt-2">
+                    <div class="image_container w-[35%]  mt-2">
                         <div class="flex flex-col items-center">
                             <img src="./img/search.png" alt="" width="150px" id="condition_img">
                         </div>

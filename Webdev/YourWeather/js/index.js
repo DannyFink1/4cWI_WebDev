@@ -208,3 +208,27 @@ document.getElementById("autocomplete").addEventListener('mousedown', function(e
     clearTimeout(autocompleteTimeout);
     event.preventDefault();
 });
+
+var menuTimeout;
+
+
+
+document.getElementById("menubtn").addEventListener("click", function(event) {
+    document.getElementById("menu").style = "right: 0; transition: right 0.3s ease-in-out;";
+
+})
+
+document.addEventListener("click", function(event) {
+    var menu = document.getElementById("menu");
+    var menubtn = document.getElementById("menubtn");
+
+    // Überprüfen, ob das geklickte Element nicht das Menü oder das Menüsymbol ist
+    if (event.target !== menu && !menu.contains(event.target) && event.target !== menubtn) {
+        // Menü schließen
+        menu.style = "right: -1000px; transition: right 0.5s ease-in-out;";
+    }
+});
+
+document.getElementById("close-x").addEventListener("click", function(event) {
+    document.getElementById("menu").style = "right: -1000px; transition: right 0.3s ease-in-out;";
+})
