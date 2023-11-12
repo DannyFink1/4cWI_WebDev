@@ -1,25 +1,6 @@
-$.ajax({
-
-    url: "https://api.weatherapi.com/v1/current.json?key=5fa2dd3419924cd88d871245231710&q=Dornbirn",
-
-    dataType: 'json',
-
-    success: function(data) {
-
-        var dataAsText = JSON.stringify(data);
-        changeData(data);
-
-
-
-    },
-
-    error: function(xmlHttpRequest, textStatus, errorThrown) {
-
-        console.log(textStatus, errorThrown);
-
-    }
-});
-
+//Startup
+callAPIforCurrent("Dornbirn");
+getHourDetails("Dornbirn");
 
 
 function changeData(data) {
@@ -32,7 +13,6 @@ function changeData(data) {
     document.getElementById("state").innerHTML = location.region;
     document.getElementById("location").innerHTML = location.name;
     document.getElementById("currentTemp").innerHTML = current.temp_c + "°";
-    document.getElementById("tempPrediction").innerHTML = (current.temp_c - 2) + "°/" + (current.temp_c + 2) + "°"; //need to figure our a way
     document.getElementById("rain").innerHTML = "Niederschlag: " + current.precip_mm + " mm/h";
     document.getElementById("wind").innerHTML = "Wind: " + current.wind_kph + " km/h";
     document.getElementById("humidity").innerHTML = "Luftfeuchtigkeit: " + current.humidity + "%"
@@ -83,12 +63,16 @@ function getFormattedMinusDate() {
 function getHourDetails(value) {
     $.ajax({
         url: "http://api.weatherapi.com/v1/history.json?key=5fa2dd3419924cd88d871245231710&q=" + value + "&dt=" + getFormattedMinusDate(),
+        // url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=schwende&types=(cities)&key=AIzaSyCDNX4eF425SU1-0F10-IgGMqIpdeKlnOo",
         dataType: 'json',
         success: function(data) {
             var dataAsText = JSON.stringify(data);
             console.log("history", data)
-
             var returnString = "";
+            //addition to main panel
+            var temperature = data.forecast.forecastday[0].hour.map(function(hour) { return hour.temp_c });
+            document.getElementById("tempPrediction").innerHTML = (Math.min(...temperature)) + "°/" + (Math.max(...temperature)) + "°"; //need to figure our a way
+
             for (var i = 0; i < 24; i++) {
                 var temp = data.forecast.forecastday[0].hour[i].temp_c;
                 var icon = data.forecast.forecastday[0].hour[i].condition.icon;
@@ -124,13 +108,12 @@ function getHourDetails(value) {
 
 function callAPIforCurrent(value) {
     $.ajax({
-        url: "https://api.weatherapi.com/v1/current.json?key=5fa2dd3419924cd88d871245231710&q=" + value,
+        url: "https://api.weatherapi.com/v1/current.json?&key=5fa2dd3419924cd88d871245231710&q=" + value,
         dataType: 'json',
         success: function(data) {
             var dataAsText = JSON.stringify(data);
             console.log("current", data);
             changeData(data);
-
         },
         error: function(xmlHttpRequest, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
@@ -139,17 +122,62 @@ function callAPIforCurrent(value) {
 
 }
 
-//Startup
-callAPIforCurrent("Dornbirn");
-getHourDetails("Dornbirn");
-var fistInput = false;
+function changeAutocomplete(value) {
+    $.ajax({
+        url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=" + value + "&types=(cities)&key=AIzaSyCDNX4eF425SU1-0F10-IgGMqIpdeKlnOo",
+        dataType: 'json',
+        success: function(data) {
+            var dataAsText = JSON.stringify(data);
+            console.log("autocomplete", data.predictions);
+            var returnString = "";
+            for (var i = 0; i < data.predictions.length; i++) {
+                returnString += "<div class=\"font-black hover:bg-[#616161] transition-[4s] text-[20px]\" onclick=\"readCoords(event)\" coords=" + data.predictions[i].place_id + ">" + data.predictions[i].description + "</div> <hr>";
+            }
+            document.getElementById("autocomplete").innerHTML = returnString;
+
+        },
+        error: function(xmlHttpRequest, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+}
+
+function readCoords(event) {
+    var selectedElement = event.target;
+    var coords = selectedElement.getAttribute("coords");
+    console.log("coords", coords);
+
+    $.ajax({
+        url: "https://maps.googleapis.com/maps/api/geocode/json?place_id=" + coords + "&key=AIzaSyCDNX4eF425SU1-0F10-IgGMqIpdeKlnOo",
+        dataType: 'json',
+        success: function(data) {
+            var dataAsText = JSON.stringify(data);
+            console.log("geocoding", data);
+            var latlon = "" + data.results[0].geometry.location.lat + "," + data.results[0].geometry.location.lng;
+            console.log("latlon:", latlon);
+            callAPIforCurrent(latlon);
+            getHourDetails(latlon);
+
+        },
+        error: function(xmlHttpRequest, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+}
+
+
 
 //Data change on Enter key
 document.getElementById("input").addEventListener('keypress', function(event) {
+    let value = document.getElementById("input").value;
     if (event.key === "Enter") {
-        let value = document.getElementById("input").value;
+
         callAPIforCurrent(value);
         getHourDetails(value);
+    }
+    if (event.key === "?") {
+        value = value.slice(0, -1);
+        changeAutocomplete(value);
     }
 })
 
@@ -165,10 +193,18 @@ document.getElementById("input").addEventListener('click', function(event) {
 
 })
 
+var autocompleteTimeout;
+
 document.getElementById("input").addEventListener('blur', function(event) {
+    // Verzögert das Ausblenden des autocomplete-Elements
+    autocompleteTimeout = setTimeout(function() {
+        console.log("blur");
+        document.getElementById("autocomplete").style.display = "none";
+    }, 1);
+});
 
-    console.log("blur");
-    document.getElementById("autocomplete").style = "display:none";
-
-
-})
+document.getElementById("autocomplete").addEventListener('mousedown', function(event) {
+    // Verhindert das Auslösen des blur-Events und behält den Fokus im Input-Feld
+    clearTimeout(autocompleteTimeout);
+    event.preventDefault();
+});
