@@ -199,7 +199,8 @@ document.getElementById("input").addEventListener('blur', function(event) {
     // Verzögert das Ausblenden des autocomplete-Elements
     autocompleteTimeout = setTimeout(function() {
         console.log("blur");
-        document.getElementById("autocomplete").style.display = "none";
+
+        document.getElementById("autocomplete").style.display = "display: none";
     }, 1);
 });
 
