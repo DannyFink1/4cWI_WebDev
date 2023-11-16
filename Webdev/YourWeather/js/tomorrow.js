@@ -9,6 +9,8 @@ function changeData(data) { //NEED TO CHANGE
     const evening = forecast_hours[20];
     console.log(morning, noon, afternoon, evening);
 
+    document.getElementById("state").innerHTML = data.location.region;
+    document.getElementById("location").innerHTML = data.location.name;
     document.getElementById("m-img").src = morning.condition.icon;
     document.getElementById("m-temp").innerHTML = morning.temp_c + "°";
     document.getElementById("m-text").innerHTML = morning.condition.text;
@@ -68,7 +70,123 @@ function callAPIforTomorrow(value) {
             console.log(textStatus, errorThrown);
         }
     });
-
 }
+
+function changeAutocomplete(value) {
+    $.ajax({
+        url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=" + value + "&types=(cities)&key=AIzaSyCDNX4eF425SU1-0F10-IgGMqIpdeKlnOo",
+        dataType: 'json',
+        success: function(data) {
+            var dataAsText = JSON.stringify(data);
+            console.log("autocomplete", data.predictions);
+            var returnString = "";
+            for (var i = 0; i < data.predictions.length; i++) {
+                returnString += "<div class=\"font-black hover:bg-[#616161] transition-[4s] text-[20px]\" onclick=\"readCoords(event)\" coords=" + data.predictions[i].place_id + ">" + data.predictions[i].description + "</div> <hr>";
+            }
+            document.getElementById("autocomplete").innerHTML = returnString;
+
+        },
+        error: function(xmlHttpRequest, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+}
+
+function readCoords(event) {
+    var selectedElement = event.target;
+    var coords = selectedElement.getAttribute("coords");
+    console.log("coords", coords);
+
+    $.ajax({
+        url: "https://maps.googleapis.com/maps/api/geocode/json?place_id=" + coords + "&key=AIzaSyCDNX4eF425SU1-0F10-IgGMqIpdeKlnOo",
+        dataType: 'json',
+        success: function(data) {
+            var dataAsText = JSON.stringify(data);
+            console.log("geocoding", data);
+            var latlon = "" + data.results[0].geometry.location.lat + "," + data.results[0].geometry.location.lng;
+            console.log("latlon:", latlon);
+            callAPIforTomorrow(latlon);
+
+        },
+        error: function(xmlHttpRequest, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+}
+
+//Data change on Enter key
+document.getElementById("input").addEventListener('keypress', function(event) {
+    let value = document.getElementById("input").value;
+    if (event.key === "Enter") {
+
+        callAPIforTomorrow(value);
+
+    }
+    if (event.key === "?") {
+        value = value.slice(0, -1);
+        console.log("moin")
+        changeAutocomplete(value);
+    }
+})
+
+document.getElementById("searchIcon").addEventListener('click', function(event) {
+    let value = document.getElementById("input").value;
+    callAPIforTomorrow(value);
+
+})
+
+document.getElementById("input").addEventListener('click', function(event) {
+    var input_div = document.getElementById("input");
+    var input_style = window.getComputedStyle(input_div);
+    var currentHeight = parseInt(input_style.getPropertyValue("height"), 10);
+    var newTopValue = input_div.offsetTop + currentHeight + 10 + "px";
+
+    console.log("clicked");
+    document.getElementById("autocomplete").style = "display: inline";
+    document.getElementById("autocomplete").style.position = "absolute";
+    document.getElementById("autocomplete").style.top = newTopValue;
+    console.log("value height ", newTopValue);
+
+})
+
+var autocompleteTimeout;
+
+document.getElementById("input").addEventListener('blur', function(event) {
+    // Verzögert das Ausblenden des autocomplete-Elements
+    autocompleteTimeout = setTimeout(function() {
+        console.log("blur");
+        document.getElementById("autocomplete").style.display = "none"
+    }, 1);
+});
+
+document.getElementById("autocomplete").addEventListener('mousedown', function(event) {
+    // Verhindert das Auslösen des blur-Events und behält den Fokus im Input-Feld
+    clearTimeout(autocompleteTimeout);
+    event.preventDefault();
+});
+
+var menuTimeout;
+
+
+
+document.getElementById("menubtn").addEventListener("click", function(event) {
+    document.getElementById("menu").style = "right: 0; transition: right 0.3s ease-in-out;";
+
+})
+
+document.addEventListener("click", function(event) {
+    var menu = document.getElementById("menu");
+    var menubtn = document.getElementById("menubtn");
+
+    // Überprüfen, ob das geklickte Element nicht das Menü oder das Menüsymbol ist
+    if (event.target !== menu && !menu.contains(event.target) && event.target !== menubtn) {
+        // Menü schließen
+        menu.style = "right: -1000px; transition: right 0.5s ease-in-out;";
+    }
+});
+
+document.getElementById("close-x").addEventListener("click", function(event) {
+    document.getElementById("menu").style = "right: -1000px; transition: right 0.3s ease-in-out;";
+})
 
 callAPIforTomorrow("Dornbirn");

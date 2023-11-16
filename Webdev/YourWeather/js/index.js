@@ -188,8 +188,16 @@ document.getElementById("searchIcon").addEventListener('click', function(event) 
 })
 
 document.getElementById("input").addEventListener('click', function(event) {
+    var input_div = document.getElementById("input");
+    var input_style = window.getComputedStyle(input_div);
+    var currentHeight = parseInt(input_style.getPropertyValue("height"), 10);
+    var newTopValue = input_div.offsetTop + currentHeight + 10 + "px";
+
     console.log("clicked");
-    document.getElementById("autocomplete").style = "display:inline";
+    document.getElementById("autocomplete").style = "display: inline";
+    document.getElementById("autocomplete").style.position = "absolute";
+    document.getElementById("autocomplete").style.top = newTopValue;
+    console.log("value height ", newTopValue);
 
 })
 
@@ -199,8 +207,7 @@ document.getElementById("input").addEventListener('blur', function(event) {
     // Verzögert das Ausblenden des autocomplete-Elements
     autocompleteTimeout = setTimeout(function() {
         console.log("blur");
-
-        document.getElementById("autocomplete").style.display = "display: none";
+        document.getElementById("autocomplete").style.display = "none"
     }, 1);
 });
 
