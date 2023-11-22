@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+        <button type="button" class="bg-[#8ECAE6]" onclick="press()">Press</button>
+        <div class="absolute top-[50%] right-[0%] bg-blue-500 h-[20%] w-[30%]" id="1">Moin</div>
+        <div class="absolute top-[50%] right-[50%] bg-blue-500 h-[20%] w-[30%]" id="2">Hallo</div>
+
+
+</body>
+</html>
+
+
+<script>
+    function press(){
+        document.getElementById("1").style.right = "-1000px";
+        document.getElementById(1).style.transition = " right 0.4s ease-in-out"
+    }
+</script>

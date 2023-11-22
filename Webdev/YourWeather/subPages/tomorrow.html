@@ -151,4 +151,157 @@
 
 </body>
 
+</html><!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/tomorrow.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body class="overflow-hidden bg-[url('../img/bg.jpg')] bg-cover" id="body">
+    <div class="wrapper">
+        <div class="bg-[#FFE899]/[.75] p-5 flex justify-between items-center border-solid border-b-[3px] border-black/[.50] ">
+            <div class="flex gap-2">
+                <a href="../index.html" class="flex gap-2">
+                    <img src="../img/sun-logo.png " width="70" height="70" alt="Sun ">
+                    <p class="text-[#FB8500] font-bold drop-shadow-lg text-[48px] ">Your</p>
+                    <p class="text-[#023047] font-medium drop-shadow-lg text-[48px] ">Weather</p>
+                </a>
+            </div>
+            <div><img src="../img/Menu.png " width="50" height="70" alt="Menu" id="menubtn"></div>
+        </div>
+        <div class="absolute border-solid border-l-[3px] border-black/[.50] right-[-1000px] w-[350px] h-[100%] bg-[#FFE899]/[.90] flex flex-col items-center" id="menu">
+            <svg class="absolute right-2 top-2" width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" id="close-x">
+                <path d="M7.0051 0L0 7.0051L3.57707 10.5822L12.4204 19.5745L3.57707 28.4178L0 31.8459L7.0051 39L10.5822 35.4229L19.5745 26.4306L28.4178 35.4229L31.8459 39L39 31.8459L35.4229 28.4178L26.4306 19.5745L35.4229 10.5822L39 7.0051L31.8459 0L28.4178 3.57707L19.5745 12.4204L10.5822 3.57707L7.0051 0Z" fill="#023047" fill-opacity="0.9"/>
+            </svg>
+
+            <div class="absolute top-[100px] flex flex-col text-[45px]">
+                <a href="../index.html">Heute</a>
+                <a href="tomorrow.html">Morgen</a>
+                <a href="threeDays.html">3-Tage</a>
+                <a href="lastWeek.html">Letzte Woche</a>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center justify-center bg-black/[0.1] h-screen w-screen">
+            <div class=" mb-3 w-[20%] h-[4.5%] bg-white rounded-[50px] border-solid border-[2px] border-[#023047]/[0.7] flex items-center justify-between">
+                <input type="text" class="font-bold text-black/[70%] text-[20px] m-2.5 w-[80%] h-[85%]" placeholder="Suche (Ort, PLZ, ...)" id="input">
+                <img class="m-2" src="../img/search.png" alt="" width="20px" id="searchIcon">
+            </div>
+            <div class="w-[20%] max-h-[20%] rounded-[20px]  bg-white border-solid border-[2px] border-[#023047]/[0.7] hidden p-2 overflow-y-scroll" id="autocomplete">
+                <div class="font-black hover:bg-[#616161] transition-[4s] text-[20px]" coords="ChIJu5efdzBsm0cRLdbNrZ0E9f4" onclick="readCoords(event)">Dornbirn</div>
+                <hr>
+                <div class="font-black hover:bg-[#616161] transition-[4s] text-[20px]" coords="ChIJxwL1bVHJeEcRcahYEisMpvk" onclick="readCoords(event)">Dornbirn</div>
+                <hr>
+                <div class="font-black hover:bg-[#616161] transition-[4s] text-[20px]" coords="ChIJxwL1bVHJeEcRcahYEisMpvk" onclick="readCoords(event)">Dornbirn</div>
+                <hr>
+
+            </div>
+
+            <div class="w-[60%] h-[50%] bg-white m-1 rounded-[20px] border-solid border-[2px] border-[#023047]/[.70] ">
+                <div class=" m-2 date.format('D/MM/YYYY') flex justify-items-center">
+                    <div class=" mt-2 ml-2 w-[34%] text-[25px]">
+                        <div class=" text-[16px] font-bold " id="state">Vorarlberg</div>
+                        <div class="text-[25px] font-regular" id="location">Alberschwende</div>
+
+                    </div>
+                    <div class="date_container text-[25px] w-[43%] font-bold flex flex-col items-center ">
+                        <div class="font-extrabold" id="day">Morgen, Do</div>
+                        <div class="font-extrabold" id="date">5.10.2023</div>
+                    </div>
+                    <div class="w-[35%]"></div>
+                </div>
+
+                <div class="flex flex-col items-center mt-[30px] h-[70%] overflow-y-auto ">
+                    <div class="bg-[#8ECAE6] w-[95%] h-[7vh] rounded-[25px] border-solid border-black border-[1.5px] flex items-center justify-between mt-2 mb-2">
+                        <div class="ml-4 text-[25px] font-black w-[120px]">Morgens</div>
+                        <div class="flex">
+                            <img class="m-2" src="../img/search.png" alt="" width="30px" id="m-img">
+                            <div class="text-[30px] font-bold" id="m-temp">6°</div>
+                        </div>
+                        <div class="text-[30px]" id="m-text">klar</div>
+                        <div class="flex flex-col items-center">
+                            <div class="text-[20px]">⌀ Niederschlag:</div>
+                            <div class="text-[18px]" id="m-rain">0 mm/h</div>
+                        </div>
+                        <div class="mr-8 flex flex-col items-center">
+                            <div class="text-[20px]">Feuchtigkeit:</div>
+                            <div class="text-[18px]" id="m-humidity">40%</div>
+                        </div>
+                    </div>
+                    <div class="bg-[#8ECAE6] w-[95%] h-[7vh] rounded-[25px] border-solid border-black border-[1.5px] flex items-center justify-between mt-2 mb-2">
+                        <div class="ml-4 text-[25px] font-black w-[120px] ">Mittags</div>
+                        <div class="flex">
+                            <img class="m-2" src="../img/search.png" alt="" width="30px" id="n-img">
+                            <div class="text-[30px] font-bold" id="n-temp">6°</div>
+                        </div>
+                        <div class="text-[30px]"id="n-text">klar</div>
+                        <div class="flex flex-col items-center">
+                            <div class="text-[20px]">⌀ Niederschlag:</div>
+                            <div class="text-[18px]" id="n-rain">0 mm/h</div>
+                        </div>
+                        <div class="mr-8 flex flex-col items-center">
+                            <div class="text-[20px]">Feuchtigkeit:</div>
+                            <div class="text-[18px]" id="n-humidity">40%</div>
+                        </div>
+                    </div>
+                    <div class="bg-[#8ECAE6] w-[95%] h-[7vh] rounded-[25px] border-solid border-black border-[1.5px] flex items-center justify-between mt-2 mb-2">
+                        <div class="ml-4 text-[25px] font-black w-[120px]">Nachmittags</div>
+                        <div class="flex">
+                            <img class="m-2" src="../img/search.png" alt="" width="30px"id="a-img">
+                            <div class="text-[30px] font-bold" id="a-temp">6°</div>
+                        </div>
+                        <div class="text-[30px]"id="a-text">klar</div>
+                        <div class="flex flex-col items-center">
+                            <div class="text-[20px]">⌀ Niederschlag:</div>
+                            <div class="text-[18px]"id="a-rain">0 mm/h</div>
+                        </div>
+                        <div class="mr-8 flex flex-col items-center">
+                            <div class="text-[20px]">Feuchtigkeit:</div>
+                            <div class="text-[18px]"id="a-humidity">40%</div>
+                        </div>
+                    </div>
+                    <div class="bg-[#8ECAE6] w-[95%] h-[7vh] rounded-[25px] border-solid border-black border-[1.5px] flex items-center justify-between mt-2">
+                        <div class="ml-4 text-[25px] font-black w-[120px]">Abends</div>
+                        <div class="flex">
+                            <img class="m-2" src="../img/search.png" alt="" width="30px" id="e-img">
+                            <div class="text-[30px] font-bold"id="e-temp">6°</div>
+                        </div>
+                        <div class="text-[30px]"id="e-text">klar</div>
+                        <div class="flex flex-col items-center">
+                            <div class="text-[20px]">⌀ Niederschlag:</div>
+                            <div class="text-[18px]"id="e-rain">0 mm/h</div>
+                        </div>
+                        <div class="mr-8 flex flex-col items-center">
+                            <div class="text-[20px]">Feuchtigkeit:</div>
+                            <div class="text-[18px]"id="e-humidity">40%</div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+
+    </div>
+
+</body>
+
 </html>
