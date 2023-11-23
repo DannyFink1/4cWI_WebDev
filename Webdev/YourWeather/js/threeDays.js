@@ -1,11 +1,10 @@
 function changeData(data) { //NEED TO CHANGE
 
-    console.log("Data Incoming:", data);
-    const forecast_hours = data.forecast.forecastday[0].hour;
-    console.log("forecast", forecast_hours);
-    const day1 = forecast_hours[7];
-    const day2 = forecast_hours[12];
-    const day3 = forecast_hours[16];
+
+    const forecastday = data.forecast.forecastday;
+    const day1 = forecastday[0].day;
+    const day2 = forecastday[1].day;
+    const day3 = forecastday[2].day;
     console.log(day1, day2, day3);
 
     document.getElementById("state").innerHTML = data.location.region;
@@ -13,25 +12,28 @@ function changeData(data) { //NEED TO CHANGE
     document.getElementById("date").innerHTML = getFormattedDateRange();
 
     //document.getElementById("1-day").innerHTML = morning.;
+    document.getElementById("1-day").innerHTML = berechneDatum(0);
     document.getElementById("1-img").src = day1.condition.icon;
-    document.getElementById("1-temp").innerHTML = day1.temp_c + "°";
+    document.getElementById("1-temp").innerHTML = day1.avgtemp_c + "°";
     document.getElementById("1-text").innerHTML = day1.condition.text;
-    document.getElementById("1-rain").innerHTML = day1.precip_mm + "mm/h";
-    document.getElementById("1-humidity").innerHTML = day1.humidity + "%";
+    document.getElementById("1-rain").innerHTML = day1.totalprecip_mm + "mm/h";
+    document.getElementById("1-humidity").innerHTML = day1.avghumidity + "%";
 
     //document.getElementById("2-day").innerHTML = noon.;
+    document.getElementById("2-day").innerHTML = berechneDatum(1);
     document.getElementById("2-img").src = day2.condition.icon;
-    document.getElementById("2-temp").innerHTML = day2.temp_c + "°";
+    document.getElementById("2-temp").innerHTML = day2.avgtemp_c + "°";
     document.getElementById("2-text").innerHTML = day2.condition.text;
-    document.getElementById("2-rain").innerHTML = day2.precip_mm + "mm/h";
-    document.getElementById("2-humidity").innerHTML = day2.humidity + "%";
+    document.getElementById("2-rain").innerHTML = day2.totalprecip_mm + "mm/h";
+    document.getElementById("2-humidity").innerHTML = day2.avghumidity + "%";
 
     //document.getElementById("3-day").innerHTML = afternoon.;
+    document.getElementById("3-day").innerHTML = berechneDatum(2);
     document.getElementById("3-img").src = day3.condition.icon;
-    document.getElementById("3-temp").innerHTML = day3.temp_c + "°";
+    document.getElementById("3-temp").innerHTML = day3.avgtemp_c + "°";
     document.getElementById("3-text").innerHTML = day3.condition.text;
-    document.getElementById("3-rain").innerHTML = day3.precip_mm + "mm/h";
-    document.getElementById("3-humidity").innerHTML = day3.humidity + "%";
+    document.getElementById("3-rain").innerHTML = day3.totalprecip_mm + "mm/h";
+    document.getElementById("3-humidity").innerHTML = day3.avghumidity + "%";
  }
 
 function getWeekday() {
@@ -41,13 +43,28 @@ function getWeekday() {
     return dayOfWeek;
 }
 
+function berechneDatum(offset) {
+  const heute = new Date();
+  heute.setDate(heute.getDate() + offset);
+
+  const tage = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+  const wochentag = tage[heute.getDay()];
+
+  const tag = heute.getDate();
+  const monat = heute.getMonth() + 1; // Monate beginnen mit 0
+
+  const datum = `${wochentag}, ${tag}.${monat}`;
+
+  return datum;
+}
+
 function getFormattedDateRange() {
     const today = new Date();
     const startDate = new Date(today);
     const endDate = new Date(today);
 
     // Set the start date to tomorrow
-    startDate.setDate(today.getDate() + 1);
+    startDate.setDate(today.getDate());
 
     // Set the end date to three days from tomorrow
     endDate.setDate(startDate.getDate() + 2);
@@ -75,11 +92,11 @@ function getFormattedDateRange() {
 
 function callAPIforThree(value) {
     $.ajax({
-        url: "http://api.weatherapi.com/v1/forecast.json?key=5fa2dd3419924cd88d871245231710&q=" + value + "&days=1",
+        url: "http://api.weatherapi.com/v1/forecast.json?key=5fa2dd3419924cd88d871245231710&q=" + value + "&days=3",
         dataType: 'json',
         success: function(data) {
             var dataAsText = JSON.stringify(data);
-            console.log("tomorrow:", data);
+            console.log("three days2:", data);
             changeData(data);
         },
         error: function(xmlHttpRequest, textStatus, errorThrown) {
@@ -205,3 +222,4 @@ document.getElementById("close-x").addEventListener("click", function(event) {
 })
 
 callAPIforThree("Dornbirn");
+
