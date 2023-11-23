@@ -77,7 +77,7 @@ function getHourDetails(value) {
                 var temp = data.forecast.forecastday[0].hour[i].temp_c;
                 var icon = data.forecast.forecastday[0].hour[i].condition.icon;
                 var humidity = data.forecast.forecastday[0].hour[i].humidity;
-                returnString += " <div class=\" h-[100px] w-[90px] bg-[#8ECAE6] border-sold border-[1px] border-[#023047] rounded-[2px] ml-4 mr-4 flex flex-col items-center\"> <div class=\"time text-[13px]\"> " + i + " Uhr</div> <div class=\"hour-temp font-semibold\">" + temp + "°</div> <div class=\"hour-img\"> <img src=" + icon + " width=\"40px\"></div> <div class=\"hour-humidity text-[9px]\">" + humidity + "%</div></div>";
+                returnString += " <div class=\" shadow-2xl h-[100px] w-[90px] bg-[#8ECAE6] border-sold border-[1px] border-[#023047] rounded-[2px] ml-4 mr-4 flex flex-col items-center\"> <div class=\"time text-[13px]\"> " + i + " Uhr</div> <div class=\"hour-temp font-semibold\">" + temp + "°</div> <div class=\"hour-img\"> <img src=" + icon + " width=\"40px\"></div> <div class=\"hour-humidity text-[9px]\">" + humidity + "%</div></div>";
             }
             document.getElementById("hour_details").innerHTML = returnString;
 
