@@ -1,4 +1,5 @@
 //Startup
+alert("CORS Anyway aktivieren unter: \nhttps://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=Berlin&types=(cities)&key=AIzaSyCDNX4eF425SU1-0F10-IgGMqIpdeKlnOo")
 callAPIforCurrent("Dornbirn");
 getHourDetails("Dornbirn");
 
@@ -117,6 +118,7 @@ function callAPIforCurrent(value) {
         },
         error: function(xmlHttpRequest, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
+            alert("Keine Suchergebnisse gefunden!");
         }
     });
 
@@ -174,6 +176,7 @@ document.getElementById("input").addEventListener('keypress', function(event) {
 
         callAPIforCurrent(value);
         getHourDetails(value);
+
     }
     if (event.key === "?") {
         value = value.slice(0, -1);
