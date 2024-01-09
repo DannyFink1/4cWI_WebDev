@@ -7,7 +7,7 @@ import TodayComponent from './components/pages/TodayComponent';
 
 function App() {
   return (
-    <div>
+    <div className=''>
       <TodayComponent/>
     </div>
     
