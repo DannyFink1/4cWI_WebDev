@@ -22,7 +22,7 @@ export default function SearchBarComponent() {
               <input type="text" className="w-[60vw] md:w-[20vw] h-[4vh] min-h-[40px] text-[30px]" placeholder="Suche (Ort)" id="input"  onClick={visibleTrue} onBlur={visibleFalse}/>
               <img src="https://res.cloudinary.com/dr72f1r80/image/upload/v1704784147/yourweather/search.png" alt="" srcset="" className="max-h-[30px]" id="searchIcon"/>
       </div>
-      <AutoCompleteMolecule visible={visible} onClick={visibleTrue} onBlur={visibleFalse}/>
+      <AutoCompleteMolecule visible={visible}/>
     </div>
   )
 }
