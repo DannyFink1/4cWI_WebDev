@@ -12,11 +12,11 @@ export default function AutoCompleteMolecule({visible}) {
     <div className={elementStyle} id="autocomplete">
             
             <div className="py-6 flex items-center w-full hover:bg-gray-50">
-                <a href="#" class="flex-1">
+                <a href="#root" class="flex-1">
                     <div className="text-gray-400 text-base"></div>
                 </a>
                 <div>
-                    <a href="https://www.google.at/maps/place/City+Dornbirn" target="_blank">
+                    <a href="https://www.google.at/maps/place/City+Dornbirn">
                     </a>  
                 </div>
             </div>

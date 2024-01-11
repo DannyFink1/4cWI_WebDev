@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function DateAtom() {
 
-  function getTodayDateMinus() {
+    function getTodayDateMinus() {
     const now = new Date();
     const day = now.getDate();
     const month = now.getMonth() + 1; 

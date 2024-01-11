@@ -1,12 +1,18 @@
 import { create } from "zustand";
 
 const useAPI = create((set) => ({
-    data: {},
-    setData: (data) => {
+    current: {},
+    setCurrent: (data) => {
         set((state) => ({
-            data: data
-        }));
-    }
+            current: data
+        }));    
+    },
+    todayRange: {},
+    setTodayRange: (data) => {
+        set((state) => ({
+            todayRange: data
+        })); 
+    }  
 }));
 
 export default useAPI;
