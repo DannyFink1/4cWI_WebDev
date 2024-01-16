@@ -4,12 +4,13 @@ import SearchBarComponent from '../organisms/SearchBarComponent'
 import MainDataComponent from '../organisms/MainDataComponent'
 import useAPI from '../../states/Api';
 import HourDataComponent from '../organisms/HourDataComponent';
+import { MagnifyingGlass } from 'react-loader-spinner';
 
 
 
 export default function TodayComponent() {
 
-  const { setCurrent, setTodayRange } = useAPI();
+  const { setCurrent, setTodayRange, current, todayRange } = useAPI();
 
   useEffect(() => {
 
@@ -43,6 +44,19 @@ export default function TodayComponent() {
     return formattedDate;
   }
 
+  if (todayRange.forecast == null || current.current == null) {
+    console.log("jo nix do werte");
+    return <div id="data" className="bg-white h-auto min-h-[400px] w-[90vw] md:w-[70vw] rounded-[20px] m-10 border-solid border-black border-[2px] flex flex-col items-center justify-center relative"><MagnifyingGlass
+      visible={true}
+      height="80"
+      width="80"
+      ariaLabel="magnifying-glass-loading"
+      wrapperStyle={{}}
+      wrapperClass="magnifying-glass-wrapper"
+      glassColor="#c0efff"
+      color="#e15b64" s
+    /></div>
+  }
 
   return (
     <div className='bg-[url("https://res.cloudinary.com/dr72f1r80/image/upload/v1704784147/yourweather/bgBig.jpg")] min-h-screen '>

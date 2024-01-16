@@ -5,14 +5,20 @@ const useAPI = create((set) => ({
     setCurrent: (data) => {
         set((state) => ({
             current: data
-        }));    
+        }));
     },
     todayRange: {},
     setTodayRange: (data) => {
         set((state) => ({
             todayRange: data
-        })); 
-    }  
+        }));
+    },
+    tempTodayRange: {},
+    setTempTodayRange: (data) => {
+        set((state) => ({
+            tempTodayRange: data
+        }));
+    }
 }));
 
 export default useAPI;

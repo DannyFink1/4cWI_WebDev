@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import useAPI from '../../states/Api'
 import HourDataMolecule from '../molecules/HourDataMolecule';
 
 export default function HourDataComponent() {
 
-    const { todayRange } = useAPI();
+    const { todayRange, tempTodayRange, setTempTodayRange } = useAPI();
+
+
+
     return (
         <div id="daysforecast"
             class="bg-white h-auto w-[90vw] md:w-[70vw] rounded-[20px] mb-4 border-solid border-black border-[2px] flex items-center relative overflow-hidden">
