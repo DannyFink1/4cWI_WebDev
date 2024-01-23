@@ -2,7 +2,7 @@ import React from 'react'
 import DayAndDateMolecule from '../molecules/DayAndDateMolecule'
 import useAPI from '../../states/Api'
 import CurrentTemperatureMolecule from '../molecules/CurrentTemperatureMolecule';
-import { Audio, MagnifyingGlass } from 'react-loader-spinner';
+import { MagnifyingGlass } from 'react-loader-spinner';
 import SecondaryInfoMolecule from '../molecules/SecondaryInfoMolecule';
 
 
@@ -19,7 +19,7 @@ export default function MainDataComponent() {
       wrapperStyle={{}}
       wrapperClass="magnifying-glass-wrapper"
       glassColor="#c0efff"
-      color="#e15b64" s
+      color="#e15b64"
     /></div>
   }
   return (

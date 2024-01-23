@@ -4,7 +4,7 @@ import useAPI from '../../states/Api';
 
 export default function SearchBarComponent() {
   const [visible, setVisible] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const [autocompleteValue, setAutocompleteValue] = useState([]);
   const { setCurrent, setTodayRange } = useAPI();
 
 
@@ -27,8 +27,21 @@ export default function SearchBarComponent() {
     if (event.key === '?') {
       console.log("Frage");
       console.log(event.target.value);
+      fetchAutoComplete(event.target.value);
     }
   }
+
+  function fetchAutoComplete(value) {
+    fetch("https://api.geoapify.com/v1/geocode/autocomplete?text=" + value + "&type=city&format=json&apiKey=2c9b4a0d91734167acac6edcb58a8f41")
+      .then(response => response.json())
+      .then(result => {
+        console.log(result)
+        setAutocompleteValue(result);
+      }
+      )
+      .catch(error => console.log('error', error));
+  }
+
 
   function getWeatherToday(value) {
     fetch('https://api.weatherapi.com/v1/current.json?&key=5fa2dd3419924cd88d871245231710&q=' + value)
@@ -73,7 +86,7 @@ export default function SearchBarComponent() {
         <input type="text" className="w-[60vw] md:w-[20vw] h-[4vh] min-h-[40px] text-[30px]" placeholder="Suche (Ort)" id="input" onClick={visibleTrue} onBlur={visibleFalse} onKeyDown={handleKeyPress} />
         <img src="https://res.cloudinary.com/dr72f1r80/image/upload/v1704784147/yourweather/search.png" alt="" srcset="" className="max-h-[30px]" id="searchIcon" />
       </div>
-      <AutoCompleteMolecule visible={visible} />
+      <AutoCompleteMolecule visible={visible} autocompleteValue={autocompleteValue} />
     </div>
   )
 }

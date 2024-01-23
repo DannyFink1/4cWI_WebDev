@@ -5,6 +5,7 @@ import MainDataComponent from '../organisms/MainDataComponent'
 import useAPI from '../../states/Api';
 import HourDataComponent from '../organisms/HourDataComponent';
 import { MagnifyingGlass } from 'react-loader-spinner';
+import MenuComponent from '../organisms/MenuComponent';
 
 
 
@@ -66,6 +67,7 @@ export default function TodayComponent() {
         <MainDataComponent />
         <HourDataComponent />
       </div>
+      <MenuComponent />
     </div>
   )
 }

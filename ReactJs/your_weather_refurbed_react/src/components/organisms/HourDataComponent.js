@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+
 import useAPI from '../../states/Api'
 import HourDataMolecule from '../molecules/HourDataMolecule';
 
 export default function HourDataComponent() {
 
-    const { todayRange, tempTodayRange, setTempTodayRange } = useAPI();
+    const { todayRange } = useAPI();
 
 
 
