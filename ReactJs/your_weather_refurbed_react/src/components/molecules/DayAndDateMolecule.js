@@ -9,6 +9,8 @@ export default function DayAndDateMolecule() {
         <LocationAtom region='Vorarlberg' city='Dornbirn'/>
         <DateSmallScreenAtom/>    
         <DateAtom/>
+        
+      
     </div>
   )
 }

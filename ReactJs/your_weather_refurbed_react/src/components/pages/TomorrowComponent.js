@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import HeaderComponent from '../organisms/HeaderComponent'
 import SearchBarComponent from '../organisms/SearchBarComponent'
 import MainDataComponent from '../organisms/MainDataComponent'
@@ -6,13 +6,13 @@ import useAPI from '../../states/Api';
 import HourDataComponent from '../organisms/HourDataComponent';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import MenuComponent from '../organisms/MenuComponent';
+import TomorrowHeaderComponent from '../organisms/TomorrowHeaderComponent';
 
 
 
-export default function TodayComponent() {
+export default function TomorrowComponent() {
 
   const { setCurrent, setTodayRange, current, todayRange } = useAPI();
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
 
@@ -25,7 +25,7 @@ export default function TodayComponent() {
         alert("Stadt nicht gefunden!");
       })
 
-    fetch('http://api.weatherapi.com/v1/history.json?key=5fa2dd3419924cd88d871245231710&q=Dornbirn&dt=' + getTodayDateMinus())
+    fetch('http://api.weatherapi.com/v1/history.json?key=5fa2dd3419924cd88d871245231710&q=Dornbirn&dt=' + getTomorrowDateMinus())
       .then(response => response.json())
       .then(response => {
         console.log("TodayRange", response);
@@ -35,11 +35,9 @@ export default function TodayComponent() {
       })
   }, [])
 
-
-
-  function getTodayDateMinus() {
+  function getTomorrowDateMinus() {
     const now = new Date();
-    const day = now.getDate();
+    const day = now.getDate()+1;
     const month = now.getMonth() + 1;
     const year = now.getFullYear();
     const formattedDay = day < 10 ? "0" + day : day;
@@ -62,25 +60,15 @@ export default function TodayComponent() {
     /></div>
   }
 
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  const closeMenu = () => {
-    console.log("Moin");
-    setMenuOpen(false);
-  };
-
   return (
     <div className='bg-[url("https://res.cloudinary.com/dr72f1r80/image/upload/v1704784147/yourweather/bgBig.jpg")] min-h-screen '>
       <HeaderComponent />
       <div className='flex flex-col items-center justify-center'>
         <SearchBarComponent />
-        <MainDataComponent />
+        <TomorrowHeaderComponent/>
         <HourDataComponent />
       </div>
-      <MenuComponent closeMenu={closeMenu} />
+      <MenuComponent />
     </div>
   )
 }
