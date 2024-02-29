@@ -37,14 +37,17 @@ export default function TomorrowComponent() {
 
   function getTomorrowDateMinus() {
     const now = new Date();
-    const day = now.getDate()+1;
-    const month = now.getMonth() + 1;
-    const year = now.getFullYear();
-    const formattedDay = day < 10 ? "0" + day : day;
-    const formattedMonth = month < 10 ? "0" + month : month;
-    const formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
-    return formattedDate;
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    
+    const year = tomorrow.getFullYear();
+    const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    const day = String(tomorrow.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
   }
+  
+  
 
   if (todayRange.forecast == null || current.current == null) {
     console.log("jo nix do werte");
@@ -56,7 +59,7 @@ export default function TomorrowComponent() {
       wrapperStyle={{}}
       wrapperClass="magnifying-glass-wrapper"
       glassColor="#c0efff"
-      color="#e15b64" s
+      color="#e15b64" 
     /></div>
   }
 
@@ -65,7 +68,7 @@ export default function TomorrowComponent() {
       <HeaderComponent />
       <div className='flex flex-col items-center justify-center'>
         <SearchBarComponent />
-        <TomorrowHeaderComponent/>
+        <TomorrowHeaderComponent getDate={getTomorrowDateMinus()}/>
         <HourDataComponent />
       </div>
       <MenuComponent />
