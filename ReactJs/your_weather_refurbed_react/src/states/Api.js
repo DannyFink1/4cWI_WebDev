@@ -18,7 +18,19 @@ const useAPI = create((set) => ({
         set((state) => ({
             tempTodayRange: data
         }));
-    }
+    },
+    tomorrow: {},
+    setTomorrow: (data) => {
+        set((state) => ({
+            tomorrow: data
+        }));
+    },
+    tomorrowRange: {},
+    setTomorrowRange: (data) => {
+        set((state) => ({
+            tomorrowRange: data
+        }));
+    },
 }));
 
 export default useAPI;

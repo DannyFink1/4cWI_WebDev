@@ -7,29 +7,27 @@ import HourDataComponent from '../organisms/HourDataComponent';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import MenuComponent from '../organisms/MenuComponent';
 import TomorrowHeaderComponent from '../organisms/TomorrowHeaderComponent';
+import TomorrowHourDataComponent from '../organisms/TomorrowHourDataComponent';
+import TomorrowMainComponent from '../organisms/TomorrowMainComponent';
 
 
 
 export default function TomorrowComponent() {
 
-  const { setCurrent, setTodayRange, current, todayRange } = useAPI();
+  const { setTomorrow, setTomorrowRange, tomorrow, tomorrowRange } = useAPI();
 
   useEffect(() => {
 
-    fetch('https://api.weatherapi.com/v1/current.json?&key=5fa2dd3419924cd88d871245231710&q=Dornbirn')
-      .then(response => response.json())
-      .then(response => {
-        console.log("Current", response);
-        setCurrent(response);
-      }).catch(error => {
-        alert("Stadt nicht gefunden!");
-      })
 
+    // Fetch for Tomorrow Data
     fetch('http://api.weatherapi.com/v1/history.json?key=5fa2dd3419924cd88d871245231710&q=Dornbirn&dt=' + getTomorrowDateMinus())
       .then(response => response.json())
       .then(response => {
-        console.log("TodayRange", response);
-        setTodayRange(response);
+        setTomorrowRange(response);
+        
+        setTomorrow(response.forecast.forecastday[0].hour[12]);
+
+  
       }).catch(error => {
         alert("Stadt nicht gefunden!");
       })
@@ -43,13 +41,13 @@ export default function TomorrowComponent() {
     const year = tomorrow.getFullYear();
     const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
     const day = String(tomorrow.getDate()).padStart(2, '0');
-    
+    console.log(`${year}-${month}-${day}`);
     return `${year}-${month}-${day}`;
   }
   
   
 
-  if (todayRange.forecast == null || current.current == null) {
+  if (tomorrowRange.forecast == null || tomorrow == null) {
     console.log("jo nix do werte");
     return <div id="data" className="bg-white h-auto min-h-[400px] w-[90vw] md:w-[70vw] rounded-[20px] m-10 border-solid border-black border-[2px] flex flex-col items-center justify-center relative"><MagnifyingGlass
       visible={true}
@@ -69,7 +67,8 @@ export default function TomorrowComponent() {
       <div className='flex flex-col items-center justify-center'>
         <SearchBarComponent />
         <TomorrowHeaderComponent getDate={getTomorrowDateMinus()}/>
-        <HourDataComponent />
+        <TomorrowMainComponent timeIndex={6}/>
+        <TomorrowHourDataComponent/>
       </div>
       <MenuComponent />
     </div>
