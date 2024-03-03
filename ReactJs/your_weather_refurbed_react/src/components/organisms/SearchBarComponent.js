@@ -5,10 +5,10 @@ import useMiscellaneous from '../../states/Miscellaneous';
 
 
 
-export default function SearchBarComponent() {
+export default function SearchBarComponent({ siteIndex }) { // Site-Index: Today (0), Tomorrow (1), 3-Days (2)
   const [visible, setVisible] = useState(false);
   const [autocompleteValue, setAutocompleteValue] = useState([]);
-  const { setCurrent, setTodayRange } = useAPI();
+  const { setCurrent, setTodayRange, tomorrow, setTomorrow, setTomorrowRange } = useAPI();
 
 
   const visibleTrue = (e) => {
@@ -24,8 +24,21 @@ export default function SearchBarComponent() {
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       console.log('enter press here! ')
-      getWeatherToday(event.target.value);
-      getHourData(event.target.value);
+
+      switch (siteIndex) {
+        case 0:
+          getWeatherToday(event.target.value);
+          getHourData(event.target.value);
+          break;
+        case 1:
+          getWeatherTomorrow(event.target.value);
+          break;
+        case 2:
+          break;
+        default:
+          break;
+      }
+
     }
     if (event.key === '?') {
       console.log("Frage");
@@ -61,6 +74,7 @@ export default function SearchBarComponent() {
   }
 
   function getHourData(value) {
+
     fetch('http://api.weatherapi.com/v1/history.json?key=5fa2dd3419924cd88d871245231710&q=' + value + "&dt=" + getTodayDateMinus())
       .then(response => response.json())
       .then(response => {
@@ -68,6 +82,21 @@ export default function SearchBarComponent() {
         if (response.error == null) {
           setTodayRange(response);
         }
+      })
+  }
+
+
+  function getWeatherTomorrow(value) {
+    fetch('http://api.weatherapi.com/v1/history.json?key=5fa2dd3419924cd88d871245231710&q=' + value + '&dt=' + getTomorrowDateMinus())
+      .then(response => response.json())
+      .then(response => {
+        setTomorrowRange(response);
+
+        setTomorrow(response.forecast.forecastday[0].hour[12]);
+
+
+      }).catch(error => {
+        alert("Stadt nicht gefunden!");
       })
   }
 
@@ -81,6 +110,18 @@ export default function SearchBarComponent() {
     const formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
     return formattedDate;
   }
+
+  function getTomorrowDateMinus() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+
+    const year = tomorrow.getFullYear();
+    const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    const day = String(tomorrow.getDate()).padStart(2, '0');
+    console.log(`${year}-${month}-${day}`);
+    return `${year}-${month}-${day}`;
+  }
   return (
 
 
@@ -89,7 +130,7 @@ export default function SearchBarComponent() {
         <input type="text" className="w-[60vw] md:w-[20vw] h-[4vh] min-h-[40px] text-[30px]" placeholder="Suche (Ort)" id="input" onClick={visibleTrue} onKeyDown={handleKeyPress} />
         <img src="https://res.cloudinary.com/dr72f1r80/image/upload/v1704784147/yourweather/search.png" alt="" srcset="" className="max-h-[30px]" id="searchIcon" />
       </div>
-    
+
       <AutoCompleteMolecule visible={visible} autocompleteValue={autocompleteValue} visibleTrue={visibleTrue} visibleFalse={visibleFalse} />
     </div>
   )

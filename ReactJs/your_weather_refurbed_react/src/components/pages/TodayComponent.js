@@ -76,7 +76,7 @@ export default function TodayComponent() {
     <div className='bg-[url("https://res.cloudinary.com/dr72f1r80/image/upload/v1704784147/yourweather/bgBig.jpg")] min-h-screen '>
       <HeaderComponent />
       <div className='flex flex-col items-center justify-center'>
-        <SearchBarComponent />
+        <SearchBarComponent siteIndex={0} />
         <MainDataComponent />
         <HourDataComponent />
       </div>

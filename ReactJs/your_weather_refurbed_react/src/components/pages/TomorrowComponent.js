@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react'
 import HeaderComponent from '../organisms/HeaderComponent'
 import SearchBarComponent from '../organisms/SearchBarComponent'
-import MainDataComponent from '../organisms/MainDataComponent'
 import useAPI from '../../states/Api';
-import HourDataComponent from '../organisms/HourDataComponent';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import MenuComponent from '../organisms/MenuComponent';
-import TomorrowHeaderComponent from '../organisms/TomorrowHeaderComponent';
-import TomorrowHourDataComponent from '../organisms/TomorrowHourDataComponent';
 import TomorrowMainComponent from '../organisms/TomorrowMainComponent';
+import MainHeaderComponent from '../organisms/MainHeaderComponent';
 
 
 
@@ -24,10 +21,10 @@ export default function TomorrowComponent() {
       .then(response => response.json())
       .then(response => {
         setTomorrowRange(response);
-        
+
         setTomorrow(response.forecast.forecastday[0].hour[12]);
 
-  
+
       }).catch(error => {
         alert("Stadt nicht gefunden!");
       })
@@ -37,15 +34,15 @@ export default function TomorrowComponent() {
     const now = new Date();
     const tomorrow = new Date(now);
     tomorrow.setDate(now.getDate() + 1);
-    
+
     const year = tomorrow.getFullYear();
     const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
     const day = String(tomorrow.getDate()).padStart(2, '0');
     console.log(`${year}-${month}-${day}`);
     return `${year}-${month}-${day}`;
   }
-  
-  
+
+
 
   if (tomorrowRange.forecast == null || tomorrow == null) {
     console.log("jo nix do werte");
@@ -57,7 +54,7 @@ export default function TomorrowComponent() {
       wrapperStyle={{}}
       wrapperClass="magnifying-glass-wrapper"
       glassColor="#c0efff"
-      color="#e15b64" 
+      color="#e15b64"
     /></div>
   }
 
@@ -65,10 +62,13 @@ export default function TomorrowComponent() {
     <div className='bg-[url("https://res.cloudinary.com/dr72f1r80/image/upload/v1704784147/yourweather/bgBig.jpg")] min-h-screen '>
       <HeaderComponent />
       <div className='flex flex-col items-center justify-center'>
-        <SearchBarComponent />
-        <TomorrowHeaderComponent getDate={getTomorrowDateMinus()}/>
-        <TomorrowMainComponent timeIndex={6}/>
-        <TomorrowHourDataComponent/>
+        <SearchBarComponent siteIndex={1} />
+        <MainHeaderComponent getDate={getTomorrowDateMinus()} region={tomorrowRange.location.region} city={tomorrowRange.location.name} />
+        <TomorrowMainComponent timeIndex={6} timeTitle={"Morgens"} />
+        <TomorrowMainComponent timeIndex={12} timeTitle={"Mittags"} />
+        <TomorrowMainComponent timeIndex={16} timeTitle={"Nachmittags"} />
+        <TomorrowMainComponent timeIndex={20} timeTitle={"Abends"} />
+        {/* <TomorrowHourDataComponent /> */}
       </div>
       <MenuComponent />
     </div>
