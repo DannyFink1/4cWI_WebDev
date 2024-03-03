@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import useMiscellaneous from '../../states/Miscellaneous';
+
 
 export default function AutoCompleteMolecule({ visible, autocompleteValue, visibleTrue, visibleFalse }) {
     let tempAutoComplete = [];
     let output = "";
-    let autoCompleteRef = useRef(null);
     let ref = useRef(null);
     const [clicked, setClicked] = useState(false);
 
@@ -16,12 +15,12 @@ export default function AutoCompleteMolecule({ visible, autocompleteValue, visib
                 console.log("ja drauf");
                 setClicked(true)
                 visibleFalse(event);
-       
+
             }
         };
-    
+
         document.addEventListener("click", handleClick);
-    
+
         // Cleanup function to remove the event listener when the component unmounts
         return () => {
             console.log("cleanup");
@@ -32,7 +31,7 @@ export default function AutoCompleteMolecule({ visible, autocompleteValue, visib
     useEffect(() => {
 
 
-        if (tempAutoComplete != autocompleteValue && autocompleteValue.results != null) {
+        if (tempAutoComplete !== autocompleteValue && autocompleteValue.results != null) {
             tempAutoComplete = autocompleteValue;
             console.log("tempVaule", tempAutoComplete)
             tempAutoComplete.results.forEach((element, index) => {
@@ -69,7 +68,7 @@ export default function AutoCompleteMolecule({ visible, autocompleteValue, visib
 
         elementStyle = "bg-white rounded-lg shadow-xl px-4 absolute mt-8 w-[90vw] md:w-[30vw] border-solid border-black border-[2px] top-[80px] z-10 hidden";
     }
-    
+
     return (
         <div className={elementStyle} id="autocomplete" ref={ref}>
 

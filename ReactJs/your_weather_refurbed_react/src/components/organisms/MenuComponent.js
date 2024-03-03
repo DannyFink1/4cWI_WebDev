@@ -3,7 +3,7 @@ import useMiscellaneous from '../../states/Miscellaneous';
 
 export default function MenuComponent({ closeMenu }) {
 
-    const {closeMenuN, setCloseMenuN} = useMiscellaneous();
+    const { closeMenuN, setCloseMenuN } = useMiscellaneous();
     const menuRef = useRef(null);
     // useEffect(() => {
     //     const handleClickOutside = (event) => {
@@ -18,20 +18,19 @@ export default function MenuComponent({ closeMenu }) {
     //     };
     // }, [closeMenu]);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log("Änderung", closeMenuN);
-        if(closeMenuN == 1)
-        {
+        if (closeMenuN === 1) {
             menuRef.current.style = "display: inline; right: 0; transition: right 0.3s ease-in-out;";
         }
     }, [closeMenuN]);
 
     const toggleMenu = () => {
-        if(closeMenuN == 1){
+        if (closeMenuN === 1) {
             setCloseMenuN(0);
             menuRef.current.style = "right: -1000px; transition: right 0.3s ease-in-out;";
         }
-      };
+    };
 
     return (
         <div className="absolute border-solid border-l-[3px] border-b-[3px] md:border-black/[.50] right-[-1000px] w-[100%] top-0 md:w-[25%] h-[100%] bg-[#FFE899] flex flex-col items-center z-10" id="menu" ref={menuRef}>

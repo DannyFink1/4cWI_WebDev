@@ -16,6 +16,10 @@ const router = createBrowserRouter([
     path: "/tomorrow",
     element: <div className='relative overflow-x-hidden'><TomorrowComponent /></div>,
   },
+  {
+    path: "/threeDays",
+    element: <div className='relative overflow-x-hidden'><TomorrowComponent /></div>,
+  },
 ]);
 
 

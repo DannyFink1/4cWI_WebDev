@@ -21,23 +21,8 @@ export default function DateAtom() {
     return weekdays[dayIndex];
   }
 
-  function getTomorrowDateMinus() {
-    const now = new Date();
-    const day = now.getDate() + 1;
-    const month = now.getMonth() + 1;
-    const year = now.getFullYear();
-    const formattedDay = day < 10 ? "0" + day : day;
-    const formattedMonth = month < 10 ? "0" + month : month;
-    const formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
-    return formattedDate;
-  }
 
-  function getTomorrowWeekday() {
-    const weekdays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
-    const today = new Date();
-    const dayIndex = today.getDay();
-    return weekdays[dayIndex];
-  }
+
 
 
   return (

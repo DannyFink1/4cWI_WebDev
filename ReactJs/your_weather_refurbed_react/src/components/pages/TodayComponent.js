@@ -12,7 +12,7 @@ import MenuComponent from '../organisms/MenuComponent';
 export default function TodayComponent() {
 
   const { setCurrent, setTodayRange, current, todayRange } = useAPI();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [setMenuOpen] = useState(false);
 
   useEffect(() => {
 
@@ -63,9 +63,6 @@ export default function TodayComponent() {
   }
 
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
 
   const closeMenu = () => {
     console.log("Moin");

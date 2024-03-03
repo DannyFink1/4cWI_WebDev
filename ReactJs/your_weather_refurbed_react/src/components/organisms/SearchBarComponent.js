@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import AutoCompleteMolecule from '../molecules/AutoCompleteMolecule'
 import useAPI from '../../states/Api';
-import useMiscellaneous from '../../states/Miscellaneous';
+
 
 
 
 export default function SearchBarComponent({ siteIndex }) { // Site-Index: Today (0), Tomorrow (1), 3-Days (2)
   const [visible, setVisible] = useState(false);
   const [autocompleteValue, setAutocompleteValue] = useState([]);
-  const { setCurrent, setTodayRange, tomorrow, setTomorrow, setTomorrowRange } = useAPI();
+  const { setCurrent, setTodayRange, setTomorrow, setTomorrowRange } = useAPI();
 
 
   const visibleTrue = (e) => {
