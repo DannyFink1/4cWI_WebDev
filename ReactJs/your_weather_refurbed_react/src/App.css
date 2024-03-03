@@ -4,6 +4,7 @@
 
 .App {
   text-align: center;
+  color: green;
 }
 
 .App-logo {
@@ -36,6 +37,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

@@ -11,15 +11,15 @@ import ThreeDaysComponent from './components/pages/ThreeDaysComponent';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div className='relative overflow-x-hidden'><TodayComponent /></div>,
+    element: <div className='relative overflow-x-hidden text-[#023047]'><TodayComponent /></div>,
   },
   {
     path: "/tomorrow",
-    element: <div className='relative overflow-x-hidden'><TomorrowComponent /></div>,
+    element: <div className='relative overflow-x-hidden text-[#023047]'><TomorrowComponent /></div>,
   },
   {
     path: "/threeDays",
-    element: <div className='relative overflow-x-hidden'><ThreeDaysComponent /></div>,
+    element: <div className='relative overflow-x-hidden text-[#023047]'><ThreeDaysComponent /></div>,
   },
 ]);
 
