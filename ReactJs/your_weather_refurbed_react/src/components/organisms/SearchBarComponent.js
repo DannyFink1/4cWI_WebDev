@@ -8,7 +8,7 @@ import useAPI from '../../states/Api';
 export default function SearchBarComponent({ siteIndex }) { // Site-Index: Today (0), Tomorrow (1), 3-Days (2)
   const [visible, setVisible] = useState(false);
   const [autocompleteValue, setAutocompleteValue] = useState([]);
-  const { setCurrent, setTodayRange, setTomorrow, setTomorrowRange } = useAPI();
+  const { setCurrent, setTodayRange, setTomorrow, setTomorrowRange, setThreeDays } = useAPI();
 
 
   const visibleTrue = (e) => {
@@ -34,6 +34,7 @@ export default function SearchBarComponent({ siteIndex }) { // Site-Index: Today
           getWeatherTomorrow(event.target.value);
           break;
         case 2:
+          getWeatherThreeDays(event.target.value);
           break;
         default:
           break;
@@ -94,6 +95,18 @@ export default function SearchBarComponent({ siteIndex }) { // Site-Index: Today
 
         setTomorrow(response.forecast.forecastday[0].hour[12]);
 
+
+      }).catch(error => {
+        alert("Stadt nicht gefunden!");
+      })
+  }
+
+  function getWeatherThreeDays(value) {
+    fetch('http://api.weatherapi.com/v1/forecast.json?key=5fa2dd3419924cd88d871245231710&q=' + value + '&days=3&aqi=no&alerts=no')
+      .then(response => response.json())
+      .then(response => {
+        console.log("Three Days", response);
+        setThreeDays(response);
 
       }).catch(error => {
         alert("Stadt nicht gefunden!");

@@ -13,7 +13,7 @@ export default function TomorrowMainComponent({ timeIndex, timeTitle }) {
             <div class="flex items-center">
                 <div class="flex flex-row">
                     <div class="text-[40px] md:text-[50px] font-bold"> {time.temp_c}°</div>
-                    <div class="text-[15px] font-bold hidden md:inline self-start"> {tomorrowRange.forecast.forecastday[0].hour[3].temp_c}°/ {tomorrowRange.forecast.forecastday[0].hour[9].temp_c}°</div>
+                    <div class="text-[15px] font-bold hidden md:inline self-start"> {tomorrowRange.forecast.forecastday[0].hour[timeIndex - 3].temp_c}°/ {tomorrowRange.forecast.forecastday[0].hour[timeIndex + 3].temp_c}°</div>
                 </div>
             </div>
             <div class="flex flex-col justify-center">

@@ -6,6 +6,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import TomorrowComponent from './components/pages/TomorrowComponent';
+import ThreeDaysComponent from './components/pages/ThreeDaysComponent';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/threeDays",
-    element: <div className='relative overflow-x-hidden'><TomorrowComponent /></div>,
+    element: <div className='relative overflow-x-hidden'><ThreeDaysComponent /></div>,
   },
 ]);
 

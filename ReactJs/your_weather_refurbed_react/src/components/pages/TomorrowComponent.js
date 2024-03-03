@@ -63,7 +63,7 @@ export default function TomorrowComponent() {
       <HeaderComponent />
       <div className='flex flex-col items-center justify-center'>
         <SearchBarComponent siteIndex={1} />
-        <MainHeaderComponent getDate={getTomorrowDateMinus()} region={tomorrowRange.location.region} city={tomorrowRange.location.name} />
+        <MainHeaderComponent getDate={getTomorrowDateMinus()} region={tomorrowRange.location.region} city={tomorrowRange.location.name} title={"Morgen"} />
         <TomorrowMainComponent timeIndex={6} timeTitle={"Morgens"} />
         <TomorrowMainComponent timeIndex={12} timeTitle={"Mittags"} />
         <TomorrowMainComponent timeIndex={16} timeTitle={"Nachmittags"} />
