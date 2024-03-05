@@ -11,7 +11,7 @@ import ThreeDaysComponent from './components/pages/ThreeDaysComponent';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div className='relative overflow-x-hidden text-[#023047]'><TodayComponent /></div>,
+    element: <div className='relative overflow-x-hidden text-[#023047] h-screen w-screen flex'><TodayComponent /></div>,
   },
   {
     path: "/tomorrow",

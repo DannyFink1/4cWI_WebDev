@@ -43,17 +43,16 @@ export default function ThreeDaysComponent() {
 
 
     if (threeDays.forecast == null || threeDays.location == null) {
-        console.log("jo nix do werte");
-        return <div id="data" className="bg-white h-auto min-h-[400px] w-[90vw] md:w-[70vw] rounded-[20px] m-10 border-solid border-black border-[2px] flex flex-col items-center justify-center relative"><MagnifyingGlass
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="magnifying-glass-loading"
-            wrapperStyle={{}}
-            wrapperClass="magnifying-glass-wrapper"
-            glassColor="#c0efff"
-            color="#e15b64"
-        /></div>
+        return <div id="data" className="bg-white w-screen min-h-[400px] rounded-[20px] m-10 border-solid border-black border-[2px] flex flex-col items-center justify-center relative self-center justify-self-center"><MagnifyingGlass
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="magnifying-glass-loading"
+        wrapperStyle={{}}
+        wrapperClass="magnifying-glass-wrapper"
+        glassColor="#c0efff"
+        color="#e15b64" 
+      /></div>
     }
     console.log("dsdf", threeDays.forecast.forecastday[0]);
     return (

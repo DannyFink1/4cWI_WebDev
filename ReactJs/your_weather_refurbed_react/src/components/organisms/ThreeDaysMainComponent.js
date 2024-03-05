@@ -5,6 +5,12 @@ export default function ThreeDaysMainComponent({ data }) {
 
 
     console.log(data);
+    let date = data.date;
+    let temp1, temp2;
+    date = date.substring(5);
+    temp1 = date.substring(0,2);
+    temp2 = date.substring(3);
+    date = `${temp2}.${temp1}`;
 
 
 
@@ -34,8 +40,8 @@ export default function ThreeDaysMainComponent({ data }) {
                 </div>
             </div>
             <div class="flex flex-col items-end w-[30vw]">
-                <div class="text-[25px] font-black hidden md:inline">{data.date}</div>
-                <div class="text-[25px] font-black md:hidden">{data.date}</div>
+                <div class="text-[25px] font-black hidden md:inline">{date}</div>
+                <div class="text-[25px] font-black md:hidden">{date}</div>
                 <img src={data.day.condition.icon} alt="" srcset="" class="w-[80px]" />
             </div>
         </div>

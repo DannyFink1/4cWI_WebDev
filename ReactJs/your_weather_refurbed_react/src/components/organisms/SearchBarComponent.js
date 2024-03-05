@@ -144,7 +144,7 @@ export default function SearchBarComponent({ siteIndex }) { // Site-Index: Today
         <img src="https://res.cloudinary.com/dr72f1r80/image/upload/v1704784147/yourweather/search.png" alt="" srcset="" className="max-h-[30px]" id="searchIcon" />
       </div>
 
-      <AutoCompleteMolecule visible={visible} autocompleteValue={autocompleteValue} visibleTrue={visibleTrue} visibleFalse={visibleFalse} />
+      {/* <AutoCompleteMolecule visible={visible} autocompleteValue={autocompleteValue} visibleTrue={visibleTrue} visibleFalse={visibleFalse} /> */}
     </div>
   )
 }
