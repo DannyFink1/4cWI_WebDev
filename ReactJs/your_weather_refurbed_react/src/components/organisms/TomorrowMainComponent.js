@@ -45,7 +45,7 @@ export default function TomorrowMainComponent({ timeIndex, timeTitle }) {
                     <div>&nbsp;{time.humidity} %</div>
                 </div>
             </div>
-            <div class="flex flex-col items-end w-[30vw]">
+            <div class="flex flex-col items-end w-[30vw] ">
                 <div class="text-[25px] font-black">{timeTitle}</div>
                 <img src={time.condition.icon} alt="" srcset="" class="w-[60px]" />
             </div>
