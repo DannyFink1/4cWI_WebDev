@@ -1,22 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import useMiscellaneous from '../../states/Miscellaneous';
 
-export default function MenuComponent({ closeMenu }) {
+export default function MenuComponent() {
 
     const { closeMenuN, setCloseMenuN } = useMiscellaneous();
     const menuRef = useRef(null);
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         if (!event.target.closest("#menu") && !event.target.closest("#menubtn")) {
-    //             closeMenu();
-    //             console.log("Irgendwas hier");
-    //         }
-    //     };
-    //     document.addEventListener("click", handleClickOutside);
-    //     return () => {
-    //         document.removeEventListener("click", handleClickOutside);
-    //     };
-    // }, [closeMenu]);
 
     useEffect(() => {
         console.log("Änderung", closeMenuN);

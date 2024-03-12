@@ -1,29 +1,15 @@
 import React, { useState } from 'react'
-import AutoCompleteMolecule from '../molecules/AutoCompleteMolecule'
 import useAPI from '../../states/Api';
 
 
 
 
 export default function SearchBarComponent({ siteIndex }) { // Site-Index: Today (0), Tomorrow (1), 3-Days (2)
-  const [visible, setVisible] = useState(false);
-  const [autocompleteValue, setAutocompleteValue] = useState([]);
+  const [setAutocompleteValue] = useState([]);
   const { setCurrent, setTodayRange, setTomorrow, setTomorrowRange, setThreeDays } = useAPI();
-
-
-  const visibleTrue = (e) => {
-    e.preventDefault();
-    setVisible(true);
-  }
-
-  const visibleFalse = (e) => {
-    e.preventDefault();
-    setVisible(false);
-  }
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      console.log('enter press here! ')
 
       switch (siteIndex) {
         case 0:
@@ -42,8 +28,6 @@ export default function SearchBarComponent({ siteIndex }) { // Site-Index: Today
 
     }
     if (event.key === '?') {
-      console.log("Frage");
-      console.log(event.target.value);
       fetchAutoComplete(event.target.value);
     }
   }
@@ -52,7 +36,6 @@ export default function SearchBarComponent({ siteIndex }) { // Site-Index: Today
     fetch("https://api.geoapify.com/v1/geocode/autocomplete?text=" + value + "&type=city&format=json&apiKey=2c9b4a0d91734167acac6edcb58a8f41")
       .then(response => response.json())
       .then(result => {
-        console.log(result)
         setAutocompleteValue(result);
       }
       )
@@ -79,7 +62,6 @@ export default function SearchBarComponent({ siteIndex }) { // Site-Index: Today
     fetch('http://api.weatherapi.com/v1/history.json?key=5fa2dd3419924cd88d871245231710&q=' + value + "&dt=" + getTodayDateMinus())
       .then(response => response.json())
       .then(response => {
-        console.log("Hourly", response);
         if (response.error == null) {
           setTodayRange(response);
         }
@@ -105,7 +87,6 @@ export default function SearchBarComponent({ siteIndex }) { // Site-Index: Today
     fetch('http://api.weatherapi.com/v1/forecast.json?key=5fa2dd3419924cd88d871245231710&q=' + value + '&days=3&aqi=no&alerts=no')
       .then(response => response.json())
       .then(response => {
-        console.log("Three Days", response);
         setThreeDays(response);
 
       }).catch(error => {
@@ -140,7 +121,7 @@ export default function SearchBarComponent({ siteIndex }) { // Site-Index: Today
 
     <div className='relative'>
       <div id="searchbar" className="w-[90vw] md:w-[30vw] h-[5vh] min-h-[50px] bg-white flex justify-between items-center pl-4 pr-4 mt-10 rounded-[50px]  border-solid border-black border-[2px]" >
-        <input type="text" className="w-[60vw] md:w-[20vw] h-[4vh] min-h-[40px] text-[30px]" placeholder="Suche (Ort)" id="input" onClick={visibleTrue} onKeyDown={handleKeyPress} />
+        <input type="text" className="w-[60vw] md:w-[20vw] h-[4vh] min-h-[40px] text-[30px]" placeholder="Suche (Ort)" id="input"  onKeyDown={handleKeyPress} />
         <img src="https://res.cloudinary.com/dr72f1r80/image/upload/v1704784147/yourweather/search.png" alt="" srcset="" className="max-h-[30px]" id="searchIcon" />
       </div>
 

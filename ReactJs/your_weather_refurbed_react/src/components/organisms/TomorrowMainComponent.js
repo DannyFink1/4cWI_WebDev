@@ -4,6 +4,7 @@ import useAPI from '../../states/Api'
 export default function TomorrowMainComponent({ timeIndex, timeTitle }) {
 
     const { tomorrowRange } = useAPI();
+    
     console.log("tomorrowRange", tomorrowRange, timeIndex);
     let time = tomorrowRange.forecast.forecastday[0].hour[timeIndex];
     console.log(time);

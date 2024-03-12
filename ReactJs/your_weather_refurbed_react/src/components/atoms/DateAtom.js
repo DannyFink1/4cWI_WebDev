@@ -26,9 +26,9 @@ export default function DateAtom() {
 
 
   return (
-    <div id="dayanddate" class="flex flex-col items-center text-[40px] font-extrabold self-center">
-      <div id="day" class="text-[40px] hidden md:inline">Heute, {getCurrentWeekday()}</div>
-      <div id="date" class="text-[40px] hidden md:inline">{getTodayDateMinus()}</div>
+    <div id="dayanddate" className="flex flex-col items-center text-[40px] font-extrabold self-center">
+      <div id="day" className="text-[40px] hidden md:inline">Heute, {getCurrentWeekday()}</div>
+      <div id="date" className="text-[40px] hidden md:inline">{getTodayDateMinus()}</div>
     </div>
   )
 

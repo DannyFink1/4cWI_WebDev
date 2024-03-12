@@ -8,7 +8,6 @@ import { MagnifyingGlass } from 'react-loader-spinner';
 export default function SecondaryInfoMolecule() {
     const { todayRange } = useAPI();
     if (todayRange.forecast == null) {
-        console.log("jo nix do werte");
         return <div id="data" className="bg-white h-auto min-h-[400px] w-[90vw] md:w-[70vw] rounded-[20px] m-10 border-solid border-black border-[2px] flex flex-col items-center justify-center relative"><MagnifyingGlass
             visible={true}
             height="80"

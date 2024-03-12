@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import HeaderComponent from '../organisms/HeaderComponent'
 import SearchBarComponent from '../organisms/SearchBarComponent'
 import MainDataComponent from '../organisms/MainDataComponent'
@@ -12,7 +12,6 @@ import MenuComponent from '../organisms/MenuComponent';
 export default function TodayComponent() {
 
   const { setCurrent, setTodayRange, current, todayRange } = useAPI();
-  const [setMenuOpen] = useState(false);
 
   useEffect(() => {
 
@@ -61,13 +60,6 @@ export default function TodayComponent() {
     /></div>
   }
 
-
-
-  const closeMenu = () => {
-    console.log("Moin");
-    setMenuOpen(false);
-  };
-
   return (
     <div className='bg-[url("https://res.cloudinary.com/dr72f1r80/image/upload/v1704784147/yourweather/bgBig.jpg")] min-h-screen '>
       
@@ -77,7 +69,7 @@ export default function TodayComponent() {
         <MainDataComponent />
         <HourDataComponent />
       </div>
-      <MenuComponent closeMenu={closeMenu} />
+      <MenuComponent/>
     </div>
   )
 }
