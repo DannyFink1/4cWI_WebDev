@@ -17,7 +17,7 @@ export default function TomorrowComponent() {
 
 
     // Fetch for Tomorrow Data
-    fetch('http://api.weatherapi.com/v1/history.json?key=5fa2dd3419924cd88d871245231710&q=Dornbirn&dt=' + getTomorrowDateMinus())
+    fetch('http://api.weatherapi.com/v1/forecast.json?key=5fa2dd3419924cd88d871245231710&q=Dornbirn&dt=' + getTomorrowDateMinus())
       .then(response => response.json())
       .then(response => {
         setTomorrowRange(response);
