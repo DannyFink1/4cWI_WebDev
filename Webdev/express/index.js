@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require("dotenv");
 const mysql = require('mysql2/promise');
-const Ajv = require("ajv")
+const Ajv = require("ajv");
+const jwt = require("jsonwebtoken");
 
 
 const app = express();
@@ -11,41 +12,22 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 dotenv.config();
 const ajv = new Ajv() // options can be passed, e.g. {allErrors: true}
+const TOKEN_SECRET = process.env.TOKEN_SECRET;
 
 
-// app.use((req, res, next) => {
-//     express.json()(req, res, err => {
-//       if (err) {
-//         return res.status(400).send({
-//           message: "Could not parse JSON"
-//         });
-//       }
-//       next();
-//     })
-//   });
-  
 // Create an async pool object with promisified methods
 
 const schema = {
     type: "object",
     properties: {
-      foo: {type: "integer"},
-      bar: {type: "string"}
+      username: {type: "string"},
+      password: {type: "string"}
     },
-    required: ["foo"],
+    required: ["username", "password"],
     additionalProperties: false
   }
   const validate = ajv.compile(schema)
 
-  // Test Data für Validation
-  const data = {
-    foo: 1,
-    bar: "abc"
-  }
-
-  
-const valid = validate(data)
-if (!valid) console.log(validate.errors)
 
   
 const pool = mysql.createPool({
@@ -58,6 +40,25 @@ const pool = mysql.createPool({
 })
 
 
+// Token für User erstellen
+function generateAccessToken(username) {
+    return jwt.sign(username, TOKEN_SECRET, { expiresIn: '1800s' });
+  }
+  
+  //Token Überprüfung
+  function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization']
+    console.log(req.headers);
+    console.log(authHeader);
+    const token = authHeader;
+    console.log(token);
+    if (!token) return res.status(401).json({ message: "kein token gefunden", status: 401 })
+    jwt.verify(token, TOKEN_SECRET, (err, user) => {
+      if (err) return res.status(403).json({ message: "falscher token", status: 403 })
+      req.user = user
+      next()
+    })
+  }
 
 async function query(sql, params) {
     try {
@@ -83,6 +84,8 @@ async function checkConnection() {
 // Call the function to check the connection
 checkConnection();
 
+
+3
 app.get('/', (req,res)=>{
     res.send("hallo ihr schueler");
 });
@@ -131,8 +134,62 @@ app.get('/todos', async function (req, res) {
 
 // Abfrage mit Platzhalter in /hello/markus
 app.post('/hello/body', function (req, res) {
-    console.log(req.body);
+    const valid = validate(req.body)
+    if (valid) {
+        console.log(req.body);
+    } else {
+        console.log(validate.errors);
+    }
     res.send(req.body);
+  });
+
+  app.get('/user/login', async function (req, res) {
+
+    //Validation
+    const valid = validate(req.body)
+    if (!valid) {
+        console.log(validate.errors);
+        return res.status(400).json({
+            status: 400,
+            message: "Wrong request!"
+          })
+    } else {
+    
+    let sql = "select username, password from users where username = ? and password = ?";
+    let values = [req.body.username, req.body.password];
+    try {
+      const results = await query(sql, values);
+      if (results.length === 0) {
+        return res.status(409).json({ status: 409, message: "username oder password falsch" });
+      }
+      const token = generateAccessToken({ username: req.body.username });
+      
+      let timestamp = new Date();
+      console.log(timestamp);
+
+      let sql2 = "UPDATE users SET lastLogin  = ? WHERE users.username = ? and users.password = ?";
+      values = [timestamp,req.body.username, req.body.password];
+      let results2 = await query(sql2, values);
+      console.log(results2);
+
+
+      return res.status(201).json({
+        token: token,
+        status: 201,
+        message: "erfolgreich eingeloggt und token erstellt"
+      })
+    } catch (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ status: 500, message: "Datenbankfehler: " + err.message });
+    }
+}
+  })
+  
+  app.get('/kunden', authenticateToken, async function (req, res) {
+    let sql = "select * from todos";
+    const results = await query(sql);
+    res.send(results)
+
   });
 
   
