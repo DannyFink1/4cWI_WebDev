@@ -158,19 +158,31 @@ app.post('/hello/body', function (req, res) {
     let sql = "select username, password from users where username = ? and password = ?";
     let values = [req.body.username, req.body.password];
     try {
-      const results = await query(sql, values);
+      let results = await query(sql, values);
       if (results.length === 0) {
         return res.status(409).json({ status: 409, message: "username oder password falsch" });
       }
       const token = generateAccessToken({ username: req.body.username });
       
-      let timestamp = new Date();
-      console.log(timestamp);
+      let date = new Date();
+      let timestamp = date.getTime();
 
-      let sql2 = "UPDATE users SET lastLogin  = ? WHERE users.username = ? and users.password = ?";
-      values = [timestamp,req.body.username, req.body.password];
+      sql = "select lastLogin from users where username = ? and password = ?";
+      results = await query(sql,values);
+      let lastDate = new Date(results[0].lastLogin);
+      let lastTimestamp = lastDate.getTime();
+
+      console.log(timestamp-lastTimestamp);
+
+      if(timestamp-lastTimestamp < 2000){
+        return res.status(500).json({
+          message: "Something went wrong!"
+        })
+      }
+
+      let sql2 = "UPDATE users SET lastLogin  = ?, lastAuthToken = ? WHERE users.username = ? and users.password = ?";
+      values = [date, token, req.body.username, req.body.password];
       let results2 = await query(sql2, values);
-      console.log(results2);
 
 
       return res.status(201).json({
@@ -186,9 +198,51 @@ app.post('/hello/body', function (req, res) {
   })
   
   app.get('/kunden', authenticateToken, async function (req, res) {
-    let sql = "select * from todos";
-    const results = await query(sql);
+    let token = req.headers['authorization'];
+    let values = [token];
+    let sql = "select * from users WHERE lastAuthToken = ?";
+    const results = await query(sql, values);
     res.send(results)
+
+  });
+
+  app.delete('/todos/delete/:id', authenticateToken, async function (req, res) {
+    let id = req.params.id;
+    let sql = "select * from todos WHERE id = " + id;
+    const results = await query(sql);
+
+
+    if(results[0] != null){
+      let sql = "DELETE from todos WHERE id = " + id;
+      const results = await query(sql);
+      res.send(results);
+
+    } else {
+      res.status(404).json({ status: 404, message: "User nicht gefunden"});
+    }
+
+
+  });
+
+  app.put('/todos/complete/:id', authenticateToken, async function (req, res) {
+    let id = req.params.id;
+    let sql = "select * from todos WHERE id = " + id;
+    let results = await query(sql);
+
+
+    if(results[0] != null){
+      if(results[0].COMPLETED == 0){
+        let sql = "UPDATE todos.todos SET COMPLETED=1 WHERE id=" + id;
+        let results = await query(sql);
+        res.send(results);
+      } else {
+        res.status(404).json({ status: 404, message: "Task bereits beendet"});
+      }
+
+    } else {
+      res.status(404).json({ status: 404, message: "User nicht gefunden"});
+    }
+
 
   });
 
